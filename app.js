@@ -24,8 +24,13 @@ app.get('/register.html', (req, res) => {
     res.sendFile(__dirname + '/views/register.html');
 });
 //update the database by adding a new user
-app.post('/', (req, res) => { 
+app.post('/register', async(req, res) => { 
     try {
+        const existingUser = await User.findOne({ name: req.body.name });
+        if(existingUser){
+            return res.status(400).send('Username is already taken.')
+        }
+
         let newUser = new User({
             name: req.body.name, // username is from the input name in the register page
             password: req.body.pass // password is from the input pass in the register page

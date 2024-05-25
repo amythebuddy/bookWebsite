@@ -3,12 +3,9 @@
     border: border-box;
     margin: 0;
 }
-body{
-    background-color: #daeaf7;
-}
 nav {
     display: flex;
-    background-color: yellow;
+    background-color: #ffdf7c;
     align-items: center;
 }
 ul{
@@ -35,21 +32,48 @@ a{
     width: 20%;
 }
 .create{
-    border: 1px black solid;
-    width: 30%;
-    margin: 0 auto;
+    border: 0.5px grey solid;
+    width: 25%;
+    margin: 2rem auto;
 }
 .create h2{
-    margin-left: 4rem;
+    margin: 1.5rem 0 1rem 1rem;
+    font-size: 1.75rem;
 }
 form{
-    width: 50%;
     margin: 0 auto;
     text-align: center;
 }
+input::placeholder{
+    font-size: 1rem;
+}
 input{
-    width: 20rem;
+    border: 0.5px grey solid;
+    margin: 0 auto;
+    width: 90%;
     height: 3rem;
     margin: 1rem 0;
-    border-radius: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding-left: 1rem;
+}
+form p {
+    margin: -0.5rem 0 -1rem 1rem;
+    font-weight: 600;
+    width: 60%;
+    /* border: 1px black solid; */
+}
+form button {
+    width: 60%;
+    height: 3rem;
+    margin: 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #feb640;
+}
+form button:hover{
+    cursor: pointer;
+    background-color: #fd9d03;
+    font-weight: 900;
 }
