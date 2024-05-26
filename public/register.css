@@ -44,9 +44,6 @@ form{
     margin: 0 auto;
     text-align: center;
 }
-input::placeholder{
-    font-size: 1rem;
-}
 input{
     border: 0.5px grey solid;
     margin: 0 auto;

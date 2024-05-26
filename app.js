@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 const PORT = 3000;
 // Enhanced connection options
 
-//connect mongodb database
+//connect mongodb database for users
 mongoose.connect("mongodb+srv://vanhacnguyen:Hc13076441%21@cluster0.pslvadd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+
 
 const User = require('./data/userData'); 
 
@@ -20,9 +21,7 @@ app.get('/', (req, res) => {
 app.get('/about.html', (req, res) => {
     res.sendFile(__dirname + '/views/about.html');
 });
-app.get('/register.html', (req, res) => {
-    res.sendFile(__dirname + '/views/register.html');
-});
+
 //update the database by adding a new user
 app.post('/register', async(req, res) => { 
     try {
