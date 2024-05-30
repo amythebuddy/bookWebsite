@@ -21,7 +21,12 @@ app.get('/', (req, res) => {
 app.get('/about.html', (req, res) => {
     res.sendFile(__dirname + '/views/about.html');
 });
-
+app.get('/book.html', (req, res) => {
+    res.sendFile(__dirname + '/views/book.html')
+});
+app.get('/register.html', (req, res) => {
+    res.sendFile(__dirname + '/views/register.html')
+});
 //update the database by adding a new user
 app.post('/register', async(req, res) => { 
     try {
