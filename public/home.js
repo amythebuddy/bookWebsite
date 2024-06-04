@@ -6,7 +6,7 @@ document.getElementById('bookInfo').addEventListener('keypress', (event) => {
 });
 document.getElementById('romance').addEventListener('click', redirectToSearchGenre);
 const romance = document.getElementById('romance');
-const bookInfo = document.getElementById('bookInfo');
+const bookInfo = document.getElementById('bookInfo');   
 
 function redirectToSearchBook() {
     const queryForRedirect = encodeURIComponent(bookInfo.value);

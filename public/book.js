@@ -1,29 +1,18 @@
-document.getElementById('find').addEventListener('click', redirectToSearch);
-document.getElementById('bookInfo').addEventListener('keypress', (event) => {
-    if(event.key === "Enter"){
-        document.getElementById("find").click();
-    }
-});
-
-const bookInfo = document.getElementById('bookInfo');
-
-function redirectToSearch() {
-    const queryForRedirect = encodeURIComponent(bookInfo.value);
-    window.location.href = `/book.html?q=${queryForRedirect}`; // redirect the page   
-}
+const output = document.getElementById('output');
 //after waiting for HTML content loaded, the function will run
-document.addEventListener('DOMContentLoaded', () =>{ 
+document.addEventListener('DOMContentLoaded', () =>{
     //creates a URLSearchParams object based on the query string (the part of the URL after the ?) of the current page's URL
     const params = new URLSearchParams(window.location.search); //window.location.search returns the query string part of the URL, including the leading ?
     //retrieves the value of the q parameter from the query string
     //If the URL is http://example.com/book.html?q=searchTerm, params.get('q') would return searchTerm.
     const query = params.get('q');
-
-    if(query){
-        findBook(query);
+    const genres = ['romance', 'comedy', 'mystery'];
+    if(!genres.includes(query)){ //if query is not one of the genres
+        findBook(query); //it is inputed by the searchBar
+    } else { //else, it is one of the genres
+        findGenre(query);
     }
 })
-const output = document.getElementById('output');
 async function findBook(query){
     try{
         const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}`);
@@ -37,11 +26,7 @@ async function findBook(query){
             output.appendChild(container);
 
             let bookCover = document.createElement('img');
-            if (book.isbn && book.isbn.length > 0) {
-                bookCover.src = `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`;
-            } else {
-                bookCover.src = "https://openlibrary.org/images/icons/avatar_book-sm.png";
-            }
+            bookCover.src = `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`;
             bookCover.classList.add('bookCover');
             container.appendChild(bookCover);
 
@@ -55,5 +40,13 @@ async function findBook(query){
         }
     } catch (error){
         console.error("Error: " + error);
+    }
+}
+async function findGenre(query){
+    try{
+        const response = await fetch(`https://openlibrary.org/subjects/${query}.json`);
+        const data = await response.json();
+    } catch(error){
+        console.error(error);
     }
 }
