@@ -46,7 +46,7 @@ app.post('/register', async(req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-app.use((req,res,next) => {
+app.use((req,res) => {
     res.status(404).sendFile(__dirname + '/views/error.html');
 });
 app.listen(PORT, () => {

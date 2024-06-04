@@ -31,10 +31,15 @@ nav input {
     margin-left: 5rem;
     width: 50%;
     height: 2rem;
-    border: 0.5px grey solid;
-    border-radius: 5px;
+    border: none;
     font-size: 1rem;
     padding-left: 1rem;
+}
+nav button {
+    height: 2rem;
+    font-size: 1.5rem;
+    border: none;
+    background-color: white;
 }
 .logo{
     padding-left: 1rem;
@@ -84,21 +89,21 @@ nav input {
 .category h2{
     margin: 0 0 1rem 2rem;
 }
-.genres{
+#genres{
     display: flex;
 }
-.genres button{
+#genres button{
     border: 0;
     margin: 0 2rem;
     padding: 1.5rem 2.5rem 0.5rem 2.5rem;
     border-radius: 20px;
     background-color: #fceeed;
 }
-.genres button:hover{
+#genres button:hover{
     cursor: pointer;
     background-color: #f7c6c2;
 }
-.genres p {
+#genres p {
     font-size: 1rem;
     font-weight: bold;
     padding-top: 1rem;
