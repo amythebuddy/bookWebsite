@@ -1,13 +1,18 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-
+const exphbs = require('handlebars');
+const path = require('path');
 const PORT = 3000;
 // Enhanced connection options
 
 //connect mongodb database for users
 mongoose.connect("mongodb+srv://vanhacnguyen:Hc13076441%21@cluster0.pslvadd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
+//Set up handlbars engine
+app.engine('handlebars', exphbs.engine());
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 const User = require('./data/userData'); 
 
@@ -16,16 +21,16 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/home.html');
+    res.sendFile(path.join(__dirname, views,) + '/views/home.html');
 });
-app.get('/about.html', (req, res) => {
-    res.sendFile(__dirname + '/views/about.html');
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, views,) + '/views/about.html');
 });
-app.get('/book.html', (req, res) => {
-    res.sendFile(__dirname + '/views/book.html')
+app.get('/book', (req, res) => {
+    res.sendFile(path.join(__dirname, views,) + '/views/book.html')
 });
-app.get('/register.html', (req, res) => {
-    res.sendFile(__dirname + '/views/register.html')
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, views,) + '/views/register.html')
 });
 //update the database by adding a new user
 app.post('/register', async(req, res) => { 
@@ -47,7 +52,7 @@ app.post('/register', async(req, res) => {
     }
 });
 app.use((req,res) => {
-    res.status(404).sendFile(__dirname + '/views/error.html');
+    res.status(404).sendFile(path.join(__dirname, views,) + '/views/error.html');
 });
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}/`);
