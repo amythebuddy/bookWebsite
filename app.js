@@ -1,36 +1,38 @@
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
-const exphbs = require('handlebars');
+const exphbs = require('express-handlebars');
 const path = require('path');
+const app = express();
 const PORT = 3000;
 // Enhanced connection options
 
 //connect mongodb database for users
 mongoose.connect("mongodb+srv://vanhacnguyen:Hc13076441%21@cluster0.pslvadd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
-//Set up handlbars engine
-app.engine('handlebars', exphbs.engine());
+// Set up Handlebars view engine with default layout
+app.engine('hbs', exphbs.engine({
+    extname: 'hbs',
+    defaultLayout: 'default',
+    layoutsDir: path.join(__dirname, 'views', 'layout')
+}));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 const User = require('./data/userData'); 
 
-app.use(express.static('public'));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 // Middleware to parse URL-encoded bodies (from form submissions)
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, views,) + '/views/home.html');
-});
-app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, views,) + '/views/about.html');
+    res.render('home', {css: 'home.css', js: 'home.js'});
 });
 app.get('/book', (req, res) => {
-    res.sendFile(path.join(__dirname, views,) + '/views/book.html')
+    res.render('book', {css: 'book.css', js: 'book.js'});
 });
 app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, views,) + '/views/register.html')
+    res.render('register', {css: 'register.css', js: 'register.js'});
 });
 //update the database by adding a new user
 app.post('/register', async(req, res) => { 
@@ -52,7 +54,7 @@ app.post('/register', async(req, res) => {
     }
 });
 app.use((req,res) => {
-    res.status(404).sendFile(path.join(__dirname, views,) + '/views/error.html');
+    res.status(404).render('error', {css: 'error.css'});
 });
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}/`);
