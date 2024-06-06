@@ -4,8 +4,14 @@ document.getElementById('bookInfo').addEventListener('keypress', (event) => {
         document.getElementById("find").click();
     }
 });
-document.getElementById('romance').addEventListener('click', redirectToSearchGenre);
-const romance = document.getElementById('romance');
+const genreButtons = document.querySelectorAll('.genre-btn');
+genreButtons.forEach(button => {
+    button.addEventListener('click', () =>{
+        redirectToSearchGenre(button);
+    });
+});
+
+document.getElementById('romance').addEventListener('click', () => {redirectToSearchGenre(romance)});
 const bookInfo = document.getElementById('bookInfo');   
 
 function redirectToSearchBook() {
@@ -13,7 +19,7 @@ function redirectToSearchBook() {
     window.location.href = `/book?q=${queryForRedirect}`; // redirect the page
 }
 
-function redirectToSearchGenre(){
-    const queryForRedirect = encodeURIComponent(romance.value);
+function redirectToSearchGenre(genre){
+    const queryForRedirect = encodeURIComponent(genre.innerText);
     window.location.href = `/book?q=${queryForRedirect}`; // redirect the page
 }

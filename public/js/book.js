@@ -6,12 +6,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     //retrieves the value of the q parameter from the query string
     //If the URL is http://example.com/book.html?q=searchTerm, params.get('q') would return searchTerm.
     const query = params.get('q');
-    const genres = ['romance', 'comedy', 'mystery'];
-    if(!genres.includes(query)){ //if query is not one of the genres
-        findBook(query); //it is inputed by the searchBar
-    } else { //else, it is one of the genres
-        findGenre(query);
-    }
+
+    findBook(query); 
 })
 async function findBook(query){
     try{
@@ -40,14 +36,5 @@ async function findBook(query){
         }
     } catch (error){
         console.error("Error: " + error);
-    }
-}
-async function findGenre(query){
-    try{
-        const response = await fetch(`https://openlibrary.org/subjects/${query}.json`);
-        const data = await response.json();
-        
-    } catch(error){
-        console.error(error);
     }
 }
