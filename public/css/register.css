@@ -7,15 +7,20 @@
 .header{
     display: flex;
 }
-.header h2{
+.header .register{
     margin: 1.5rem 0 1rem 1rem;
     font-size: 1.75rem;
     width: 20rem;
 }
+.logIn{
+    margin: 1.5rem 0 1rem 1rem;
+    font-size: 2rem;
+    width: 14rem;
+}
 .header h3 {
     justify-content: flex-end;
     text-align: end;
-    margin: 2rem 0 1rem 1rem;
+    margin: 2rem 0 1rem 2rem;
     cursor: pointer;
 }
 form{

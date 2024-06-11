@@ -25,8 +25,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Middleware to parse URL-encoded bodies (from form submissions)
 app.use(express.urlencoded({ extended: true }));
 
+// Define the API endpoint to fetch user data
+app.get('/api/users', async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.json(users);
+    } catch(error){
+        res.status(500).send(error);
+    }
+});
+
 app.get('/', (req, res) => {
     res.render('home', {css: 'home.css', js: 'home.js'});
+});
+app.get('/desc/works/:id', (req, res) => {
+    res.render('desc', {css: 'desc.css', js: 'desc.js'})
 });
 app.get('/book', (req, res) => {
     res.render('book', {css: 'book.css', js: 'book.js'});
@@ -34,6 +47,9 @@ app.get('/book', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('register', {css: 'register.css', js: 'register.js'});
 });
+app.get('/logIn', (req, res) => {
+    res.render('logIn', {css: 'register.css', js: 'logIn.js'});
+})
 //update the database by adding a new user
 app.post('/register', async(req, res) => { 
     try {

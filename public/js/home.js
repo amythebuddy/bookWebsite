@@ -11,10 +11,9 @@ genreButtons.forEach(button => {
     });
 });
 
-document.getElementById('romance').addEventListener('click', () => {redirectToSearchGenre(romance)});
-const bookInfo = document.getElementById('bookInfo');   
 
 function redirectToSearchBook() {
+    const bookInfo = document.getElementById('bookInfo');
     const queryForRedirect = encodeURIComponent(bookInfo.value);
     window.location.href = `/book?q=${queryForRedirect}`; // redirect the page
 }

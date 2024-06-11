@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', () =>{
     const query = params.get('q');
 
     findBook(query); 
-})
+});
 async function findBook(query){
     try{
         const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}`);
         const data = await response.json();
         // Clear previous results
         output.innerHTML = '';
-        for(let i = 0; i < 10; i++){ // show the first 10 results
+        for(let i = 0; i < 20; i++){ // show the first 10 results
             let book = data.docs[i];
             let container = document.createElement('div');
             container.classList.add('container');
@@ -27,7 +27,7 @@ async function findBook(query){
             container.appendChild(bookCover);
 
             let title = document.createElement('h2');
-            title.innerText = book.title;
+            title.innerHTML = `<a href="/desc${book.key}">${book.title}</a>`
             container.appendChild(title);
 
             let author = document.createElement('p');

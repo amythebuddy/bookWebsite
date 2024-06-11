@@ -38,8 +38,8 @@
         }
         li{
             list-style-type: none;
-            padding: 1rem 4rem;
-            font-size: 1.5rem;
+            margin: 1rem 4rem;
+            font-size: 1.25rem;
         }
         ul li:hover{
             font-weight: 900;
@@ -52,21 +52,87 @@
             font-size: 2.5rem;
             width: 20%;
         }
+        /*Dropdown h3*/
+        #displayUsername{
+            margin-bottom: -1rem;
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-right: 1.5rem;
+        }
+        /*container div*/
+        .dropdown{
+            /*relative needed when we want the dropdown content to be placed right below the dropdown button (using position:absolute).*/
+            position: relative;
+            display: inline-block;
+        }
+        /*hidden by default*/
+        .dropdownContent{
+            display: none;
+            position: absolute;
+            background-color: white;
+            width: 100%;
+            z-index: 1;
+        }
+        /*Links in the dropdown*/
+        .dropdownContent a{
+            color: black;
+            font-size: 1.25rem;
+            display: block;
+            padding: 12px 16px;
+        }
+        /*Show dropdown menu on hover*/
+        .dropdown:hover .dropdownContent{
+            display: block;
+        }
+        /*Change color of dropdown link*/
+        .dropdownContent a:hover{
+            color: #fad156;
+            text-decoration: underline;
+        }
     </style>
     <link rel="stylesheet" href="/css/{{css}}">
     <script src="/js/{{js}}" defer></script>
 </head>
 <body>
     <nav>
-    <a href="#" class = "logo">BookLet</a>
+        <a href="#" class = "logo">BookLet</a>
         <input type="text" id="bookInfo" placeholder="Search books">
         <button id = "find"><a href="/book"></a>&#128269;</button>
-
-    <ul>
-        <li><a class = "navBar" href = "/">Home</a></li>
-        <li><a class = "navBar" href = "/register">Register</a></li>
-    </ul>
+        <ul>
+            <li><a class = "navBar" href = "/" style="font-size: 1.5rem;">Home</a></li>
+            <div class="dropdown">
+                <h3 id="displayUsername">Hi Reader!</h3>
+                <li><a id="settings" class = "navBar" href = "/logIn">Log In</a></li>
+                <div class="dropdownContent">
+                    <a id="signIn" href="/logIn">Log In</a>
+                    <a id="createAccount" href="/register">Create Account</a>
+                </div>
+            </div>
+        </ul>
     </nav>
     {{{body}}}
+    <script>
+        //Set the username from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            let loggedIn = false;
+            const username = localStorage.getItem('username');
+            if(username){
+                loggedIn = true
+                document.getElementById('displayUsername').innerText = `Hi ${username}!`;
+            }
+            if(loggedIn){
+                document.getElementById('settings').innerHTML = '<a href="/settings">My Account</a>';
+                document.getElementById('signIn').innerHTML = '<a href="/bookshelf">My Bookshelf</a>';
+                document.getElementById('createAccount').innerHTML = '<a href="/">Log Out</a>';
+                document.getElementById('createAccount').onclick = () =>{
+                    logOut();
+                }
+            }
+        });
+        function logOut(){
+            localStorage.removeItem('username');
+        }
+    </script>
 </body>
 </html>
