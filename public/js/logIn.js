@@ -8,6 +8,7 @@ async function logInUser(event){
     try{
         const response = await fetch('http://localhost:3000/api/users');
         const data = await response.json();
+
         let userFound = false;
         for(let i = 0; i < data.length; i++){
             if(data[i].name == username.value && data[i].password == password.value){
@@ -20,7 +21,7 @@ async function logInUser(event){
         if(userFound){
             window.location.href = '/';
         } else {
-            alert('Invalid username or password');
+            alert("Invalid username or password");
         }
 
     } catch(error){

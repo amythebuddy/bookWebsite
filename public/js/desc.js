@@ -16,11 +16,15 @@ async function findDescription(id){
         const data = await response.json();
 
         let publishedDate = document.createElement('p')
-        publishedDate.innerText = data.created.value.slice(0,4);
+        publishedDate.innerText = data.publish_data || data.created.value.slice(0,4);
         result.appendChild(publishedDate);
 
         let desc = document.createElement('p');
-        desc.innerText = data.description;
+        if(data.description instanceof Object){
+            desc.innerText = data.description.value;
+        } else {
+            desc.innerText = data.description;
+        }
         result.appendChild(desc);
     } catch(error){
         console.error(error);

@@ -7,7 +7,7 @@ const PORT = 3000;
 // Enhanced connection options
 
 //connect mongodb database for users
-mongoose.connect("mongodb+srv://vanhacnguyen:Hc13076441%21@cluster0.pslvadd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect("mongodb+srv://vanhacnguyen:Hc13076441!@cluster0.pslvadd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
 // Set up Handlebars view engine with default layout
 app.engine('hbs', exphbs.engine({
@@ -22,8 +22,12 @@ const User = require('./data/userData');
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
+
 // Middleware to parse URL-encoded bodies (from form submissions)
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware to parse JSON bodies
+app.use(express.json());
 
 // Define the API endpoint to fetch user data
 app.get('/api/users', async (req, res) => {
@@ -49,7 +53,10 @@ app.get('/register', (req, res) => {
 });
 app.get('/logIn', (req, res) => {
     res.render('logIn', {css: 'register.css', js: 'logIn.js'});
-})
+});
+app.get('/bookshelf', (req, res) => {
+    // res.render('bookshelf');
+});
 //update the database by adding a new user
 app.post('/register', async(req, res) => { 
     try {
