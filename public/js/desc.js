@@ -13,10 +13,12 @@ document.addEventListener('DOMContentLoaded', () =>{
 async function findDescription(id){
     try{
         const response = await fetch(`https://openlibrary.org/works/${id}.json`);
+        const publishResponse = await fetch(`https://openlibrary.org/books/${id}.json`);
         const data = await response.json();
+        const result  = await publishResponse.json();
 
         let publishedDate = document.createElement('p')
-        publishedDate.innerText = data.publish_data || data.created.value.slice(0,4);
+        publishedDate.innerText = result.published_date;
         result.appendChild(publishedDate);
 
         let desc = document.createElement('p');

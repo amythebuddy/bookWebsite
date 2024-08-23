@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+const axios = require('axios'); //use axios for making HTTP requests
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
 const path = require('path');
@@ -6,6 +8,7 @@ const app = express();
 const PORT = 3000;
 // Enhanced connection options
 
+app.use(cors()); // Enable CORS for all routes
 //connect mongodb database for users
 mongoose.connect("mongodb+srv://vanhacnguyen:Hc13076441!@cluster0.pslvadd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
