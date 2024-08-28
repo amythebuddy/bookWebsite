@@ -33,6 +33,10 @@ async function findBook(query){
             let author = document.createElement('p');
             author.innerText = "Author(s): " + book.author_name.join(', ');
             container.appendChild(author);
+            
+            let firstPublishYear = document.createElement('p');
+            firstPublishYear.innerText = "First Publish Year: " + book.first_publish_year;
+            container.appendChild(firstPublishYear);
         }
     } catch (error){
         console.error("Error: " + error);

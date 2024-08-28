@@ -22,6 +22,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 const User = require('./data/userData'); 
+const Book = require('')
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -34,6 +35,14 @@ app.use(express.json());
 
 // Define the API endpoint to fetch user data
 app.get('/api/users', async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.json(users);
+    } catch(error){
+        res.status(500).send(error);
+    }
+});
+app.get('/api/books', async (req, res) => {
     try {
         const users = await User.find({});
         res.json(users);
@@ -60,6 +69,17 @@ app.get('/logIn', (req, res) => {
 app.get('/bookshelf', (req, res) => {
     // res.render('bookshelf');
 });
+app.get('/api/desc/:id', async (req, res) => { // fetch from the Open Library API for the description of the book
+    const bookId = req.params.id;
+    try {
+        const response = await axios.get(`https://openlibrary.org/works/${bookId}.json`);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching book data:', error);
+        res.status(500).send('Error fetching book data');
+    }
+});
+    
 //update the database by adding a new user
 app.post('/register', async(req, res) => { 
     try {

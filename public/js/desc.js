@@ -12,14 +12,15 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 async function findDescription(id){
     try{
-        const response = await fetch(`https://openlibrary.org/works/${id}.json`);
-        const publishResponse = await fetch(`https://openlibrary.org/books/${id}.json`);
+        const response = await fetch(`/api/desc/${id}`);
         const data = await response.json();
-        const result  = await publishResponse.json();
+        
+        let descBox = document.createElement('div');
+        descBox.classList.add('descBox');
 
-        let publishedDate = document.createElement('p')
-        publishedDate.innerText = result.published_date;
-        result.appendChild(publishedDate);
+        let title = document.createElement('h1');
+        title.innerText = data.title;
+        descBox.appendChild(title);
 
         let desc = document.createElement('p');
         if(data.description instanceof Object){
@@ -27,7 +28,16 @@ async function findDescription(id){
         } else {
             desc.innerText = data.description;
         }
-        result.appendChild(desc);
+        descBox.appendChild(desc);
+
+        let likeBtn = document.createElement('button');
+        likeBtn.innerText = "Add to Bookshelf";
+        likeBtn.classList.add('likeBtn');
+        likeBtn.onclick = function(){
+            likeBtn.innerText = "Added to Bookshelf";
+        };
+        descBox.appendChild(likeBtn);
+        result.appendChild(descBox);
     } catch(error){
         console.error(error);
     }
