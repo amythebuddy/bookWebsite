@@ -22,7 +22,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 const User = require('./data/userData'); 
-const Book = require('')
+const Book = require('./data/bookData');
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -79,7 +79,26 @@ app.get('/api/desc/:id', async (req, res) => { // fetch from the Open Library AP
         res.status(500).send('Error fetching book data');
     }
 });
-    
+
+//update the database by adding a book to the Bookshelf
+app.post('/bookshelfData', async(req, res) =>{
+    try{
+        const { bookName, author } = req.body;
+        // create a new favorite book entry
+        let newFavorite = new Book({
+            bookName: bookName,
+            author: author
+        });
+        //save the book to database
+        await newFavorite.save();
+
+        res.status(201).send('Book added to favorites successfully');
+    } catch (err){
+        console.error('Error adding book to favorites: '+ err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 //update the database by adding a new user
 app.post('/register', async(req, res) => { 
     try {
