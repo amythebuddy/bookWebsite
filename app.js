@@ -44,8 +44,8 @@ app.get('/api/users', async (req, res) => {
 });
 app.get('/api/books', async (req, res) => {
     try {
-        const users = await User.find({});
-        res.json(users);
+        const books = await Book.find({});
+        res.json(books);
     } catch(error){
         res.status(500).send(error);
     }
@@ -67,7 +67,7 @@ app.get('/logIn', (req, res) => {
     res.render('logIn', {css: 'register.css', js: 'logIn.js'});
 });
 app.get('/bookshelf', (req, res) => {
-    // res.render('bookshelf');
+    res.render('bookshelf', {css: 'bookshelf.css', js: 'bookshelf.js'});
 });
 app.get('/api/desc/:id', async (req, res) => { // fetch from the Open Library API for the description of the book
     const bookId = req.params.id;
@@ -83,11 +83,11 @@ app.get('/api/desc/:id', async (req, res) => { // fetch from the Open Library AP
 //update the database by adding a book to the Bookshelf
 app.post('/bookshelfData', async(req, res) =>{
     try{
-        const { bookName, author } = req.body;
+        console.log(req.body);
         // create a new favorite book entry
         let newFavorite = new Book({
-            bookName: bookName,
-            author: author
+            bookName: req.body.bookName,
+            cover: req.body.cover
         });
         //save the book to database
         await newFavorite.save();
@@ -108,8 +108,8 @@ app.post('/register', async(req, res) => {
         }
 
         let newUser = new User({
-            name: req.body.name, // username is from the input name in the register page
-            password: req.body.pass // password is from the input pass in the register page
+            name: req.body.name, // username is from the "name" input in the register html
+            password: req.body.pass // password is from the "pass" input in the register html
         });
         newUser.save();
         res.redirect('/');
